@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class Session {
     public User user;
-    static Database db = new Database("keysafe.db");
+    private Database db = new Database("keysafe.db");
 
     //    Login
      public boolean login(String email, String password) {
@@ -32,7 +32,7 @@ public class Session {
          }
 
          if (password.equals(password_db)) {
-             this.user = new User(id, name, email_db, registerDate);
+             this.user = new User(id, name, email_db, registerDate, db);
          };
 
         return isLogged();

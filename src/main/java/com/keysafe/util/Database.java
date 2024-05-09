@@ -17,6 +17,7 @@ public class Database {
             this.connection = DriverManager.getConnection(this.db);
             Statement statement = this.connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), email VARCHAR(255) UNIQUE, password VARCHAR(255), loginStatus BOOL, registerDate VARCHAR(255))");
+            statement.execute("CREATE TABLE IF NOT EXISTS credentials (id INTEGER PRIMARY KEY AUTOINCREMENT, category VARCHAR(255), name VARCHAR(255), email VARCHAR(255), password VARCHAR(255), site VARCHAR(255), brand VARCHAR(255), number VARCHAR(255), expMonth VARCHAR(255), cvv VARCHAR(255), userId INTEGER, dateCreated VARCHAR(255), lastUpdated VARCHAR(255))");
             statement.close();
             this.connection.close();
 

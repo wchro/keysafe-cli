@@ -29,7 +29,19 @@ public class Menu {
                 // Show credentials
                 break;
             case 2:
-                // Add new credential
+                QuickCommands.clear();
+                System.out.println("➕ Añadir nueva credencial 🪪\n");
+                System.out.print("Nombre: ");
+                String name = scanner.next();
+                System.out.print("URL: ");
+                String site = scanner.next();
+                System.out.print("Email: ");
+                String email = scanner.next();
+                System.out.print("Contraseña: ");
+                String password = scanner.next();
+                session.user.addCredential(name, email, password, site);
+                System.out.println("\n✅ Guardado");
+                break;
             case 0:
                 QuickCommands.exit();
         }
