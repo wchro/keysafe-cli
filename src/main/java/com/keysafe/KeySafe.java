@@ -12,11 +12,14 @@
 package com.keysafe;
 
 import com.keysafe.service.Session;
+import com.keysafe.util.Database;
 import com.keysafe.util.Menu;
 
 
 public class KeySafe {
     static Boolean run = true;
+    public static Database db = new Database("keysafe.db");
+
     public static void main(String[] args) {
 
         Session session = new Session();

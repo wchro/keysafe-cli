@@ -1,16 +1,17 @@
 package com.keysafe.service;
 
+import com.keysafe.KeySafe;
 import com.keysafe.model.User;
 import com.keysafe.util.Database;
+import com.keysafe.util.QuickCommands;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Session {
     public User user;
-    private Database db = new Database("keysafe.db");
+    private Database db = KeySafe.db;
+
 
     //    Login
      public boolean login(String email, String password) {
@@ -24,15 +25,11 @@ public class Session {
          String name = user[1];
          String email_db = user[2];
          String password_db = user[3];
-         Date registerDate;
-         try {
-             registerDate = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(user[5]);
-         } catch (ParseException e) {
-             registerDate = new Date();
-         }
+         Date registerDate = QuickCommands.parseDate(user[5]);
+
 
          if (password.equals(password_db)) {
-             this.user = new User(id, name, email_db, registerDate, db);
+             this.user = new User(id, name, email_db, registerDate);
          };
 
         return isLogged();
