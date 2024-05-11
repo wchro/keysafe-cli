@@ -4,7 +4,6 @@ import com.keysafe.KeySafe;
 import com.keysafe.util.Database;
 import com.keysafe.util.QuickCommands;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Date;
 

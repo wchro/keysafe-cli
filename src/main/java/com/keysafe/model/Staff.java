@@ -5,8 +5,8 @@ import com.keysafe.util.Database;
 import java.util.Date;
 
 public class Staff extends User {
-    public Staff(int id, String name, String email, Date registerDate, Database db) {
-        super(id, name, email, registerDate, db);
+    public Staff(int id, String name, String email, Date registerDate) {
+        super(id, name, email, registerDate);
     }
 
 

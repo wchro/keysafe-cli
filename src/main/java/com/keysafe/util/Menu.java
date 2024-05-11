@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.keysafe.model.Credential;
+import com.keysafe.model.Login;
 import com.keysafe.service.Session;
 
 
@@ -31,10 +32,39 @@ public class Menu {
             case 1:
                 ArrayList<Credential> credentials = session.user.getCredentials();
                 QuickCommands.clear();
-                System.out.println("🔒 Credenciales 🔒");
+                System.out.println("🔒 Credenciales: %s 🔒\n".formatted(credentials.size()));
                 for (int i = 0; i < credentials.size(); i++) {
                     Credential credential = credentials.get(i);
+                    System.out.println("%s. %s".formatted(i + 1, credential.getName()));
                 }
+
+                boolean credentialsLoop = true;
+                while (credentialsLoop) {
+                    System.out.print("\nSelecciona una credencial (0 para salir): ");
+                    int userCredential = scanner.nextInt();
+
+                    if (userCredential == 0) {
+                        credentialsLoop = false;
+                        return;
+                    };
+
+                    Credential selectedCredential = credentials.get(userCredential - 1);
+
+                    if (selectedCredential.getCategory().equals("login")) {
+                        selectedCredential.getLogin().showInfo();
+                    }
+
+                    if (selectedCredential.getCategory().equals("card")) {
+                        selectedCredential.getCard().showInfo();
+                    }
+
+
+
+                }
+
+
+
+                break;
 
             case 2:
                 QuickCommands.clear();

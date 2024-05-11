@@ -13,4 +13,16 @@ public class Login extends Credential {
         this.password = password;
         this.site = site;
     }
+
+    @Override
+    public void showInfo() {
+        System.out.println("\n----------");
+        System.out.println("Credencial: " + this.getName());
+        System.out.println("\nURL: " + this.site);
+        System.out.println("Email: " + this.email);
+        System.out.println("Password: " + this.site);
+        System.out.println("\nModificado: " + this.getLastUpdated());
+        System.out.println("Creado: " + this.getDateCreated());
+        System.out.println("----------\n");
+    }
 }
