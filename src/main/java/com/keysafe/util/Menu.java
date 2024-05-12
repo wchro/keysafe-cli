@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.keysafe.model.Credential;
-import com.keysafe.model.Login;
+import com.keysafe.model.Ticket;
 import com.keysafe.service.Session;
 
 
@@ -23,6 +23,7 @@ public class Menu {
         System.out.println("Menu");
         System.out.println("1. Ver credenciales");
         System.out.println("2. Añadir nueva credencial");
+        System.out.println("3. Tickets");
         System.out.println("0. Cerrar");
         System.out.print("\nSelecciona una opción: ");
         byte userChoice = scanner.nextByte();
@@ -57,15 +58,8 @@ public class Menu {
                     if (selectedCredential.getCategory().equals("card")) {
                         selectedCredential.getCard().showInfo();
                     }
-
-
-
                 }
-
-
-
                 break;
-
             case 2:
                 QuickCommands.clear();
                 System.out.println("➕ Añadir nueva credencial 🪪\n");
@@ -106,6 +100,56 @@ public class Menu {
                         session.user.addCard(name, brand, cardHolder, number, expMonth, expYear, cvv);
                         System.out.println("\n✅ Guardada");
                         break;
+                }
+                break;
+            case 3:
+                QuickCommands.clear();
+                System.out.println("✉️ Tickets ✉️");
+                System.out.println("\n1. Ver mis tickets");
+                System.out.println("2. Abrir ticket");
+                System.out.println("0. Cerrar");
+                System.out.print("\nSelecciona una opción: ");
+                int userTicketChoice = scanner.nextInt();
+                switch (userTicketChoice) {
+                    case 1:
+                        // Ver tickets
+                        ArrayList<Ticket> tickets = session.user.getTickets();
+                        QuickCommands.clear();
+                        System.out.println("🔒 Tickets: %s 🔒\n".formatted(tickets.size()));
+                        for (int i = 0; i < tickets.size(); i++) {
+                            Ticket ticket = tickets.get(i);
+                            System.out.println("%s. %s".formatted(i + 1, ticket.getTitle()));
+                        }
+
+                        boolean ticketsLoop = true;
+                        while (ticketsLoop) {
+                            System.out.print("\nSelecciona un ticket (0 para salir): ");
+                            int userTicket = scanner.nextInt();
+
+                            if (userTicket == 0) {
+                                ticketsLoop = false;
+                                return;
+                            };
+
+                            Ticket selectedTicket = tickets.get(userTicket - 1);
+
+                                selectedTicket.showInfo();
+
+                        }
+                        break;
+                    case 2:
+                        // Abrir ticket
+                        QuickCommands.clear();
+                        System.out.println("📝 Abrir nuevo ticket 📝");
+                        System.out.print("\nTitulo: ");
+                        String title = scanner.next();
+                        System.out.print("Descripción: ");
+                        String body = scanner.next();
+                        session.user.addTicket(title, body);
+                        System.out.println("\nTicket abierto ✅");
+                        break;
+                    case 0:
+
                 }
                 break;
             case 0:

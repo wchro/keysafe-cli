@@ -57,12 +57,41 @@ public class User {
     }
 
     // Add new credit card
-
     public void addCard(String name, String brand, String cardHolder, String number, String expMonth, String expYear, String cvv) {
         Date date = new Date();
         db.insertData(("INSERT INTO credentials (category, name, brand, cardHolder, number, expMonth, expYear, cvv, userId, dateCreated, lastUpdated)" +
                 "VALUES ('card', '%s', '%s', '%s', '%s', %s, '%s', '%s', %s, '%s', '%s')")
                 .formatted(name, brand, cardHolder, number, expMonth, expYear, cvv, this.id, date, date));
     }
+
+    // Add new ticket
+    public void addTicket(String title, String body) {
+        Date date = new Date();
+        db.insertData(("INSERT INTO tickets (title, body, userId, staffId, status, dateCreated, lastUpdated)" +
+                "VALUES ('%s', '%s', %s, 0, 'abierto', '%s', '%s')")
+                .formatted(title, body, this.id, date, date));
+    }
+
+    // Get Tickets
+    public ArrayList<Ticket> getTickets() {
+        ArrayList<Ticket> tickets = new ArrayList<>();
+        ArrayList<String[]> result = db.getData("SELECT * FROM tickets WHERE userId = %s".formatted(this.id));
+
+        for (int i = 0; i < result.size(); i++) {
+            // Format data
+            int id = Integer.parseInt(result.get(i)[0]);
+            String title = result.get(i)[1];
+            String body = result.get(i)[2];
+            int staffId = Integer.parseInt(result.get(i)[4]);
+            String status = result.get(i)[5];
+            Date dateCreated = QuickCommands.parseDate(result.get(i)[6]);
+            Date lastUpdated = QuickCommands.parseDate(result.get(i)[7]);
+
+            Ticket ticket = new Ticket(id, title, body, this.id, staffId, status, dateCreated, lastUpdated);
+
+            tickets.add(ticket);
+        }
+        return tickets;
+    };
 }
 
